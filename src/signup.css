@@ -1,0 +1,64 @@
+/* Base styles */
+.signupContainer {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    max-width: 400px; /* Adjust width as needed */
+    margin: 0 auto; /* Center the container */
+    position: relative;
+    top: 150px;
+}
+
+.signupContainer h2 {
+    margin-bottom: 10px;
+}
+
+.signupContainer form {
+    display: flex;
+    flex-direction: column;
+}
+
+.signupContainer input {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.signupContainer button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.signupContainer button:hover {
+    background-color: #0056b3;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Style input fields with errors */
+.signupContainer input.error {
+    border-color: red;
+}
+
+/* Media queries for responsiveness */
+@media screen and (max-width: 768px) {
+    .signupContainer {
+        max-width: 90%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .signupContainer {
+        padding: 15px;
+    }
+}
