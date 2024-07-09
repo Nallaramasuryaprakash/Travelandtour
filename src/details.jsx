@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Data } from "./Components/Main/Main.jsx";
+import { DataContext } from "./Assets/Datacontext"; // Import DataContext
 import "./details.css";
 
 const Details = () => {
     const { destTitle } = useParams();
-    const item = Data.find(item => item.destTitle === destTitle);
+    const data = useContext(DataContext); // Consume DataContext
+    const item = data.find(item => item.destTitle === destTitle);
     const navigate = useNavigate();
 
     const handleContinue = () => {

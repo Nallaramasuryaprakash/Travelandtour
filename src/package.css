@@ -1,0 +1,64 @@
+.package-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.package-card {
+  width: 300px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.package-image {
+  width: 100%;
+  height: 150px; /* Adjust height as needed */
+  object-fit: cover; /* Ensure images maintain aspect ratio */
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.package-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.package-description {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.package-price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #009688;
+}
+
+@media screen and (max-width: 1024px) {
+  .package-container {
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .package-container {
+    justify-content: center;
+  }
+  .package-card {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .package-card {
+    width: 100%;
+    max-width: 300px;
+  }
+}

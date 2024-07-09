@@ -1,0 +1,17 @@
+.payment-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cancel-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.cancel-button:hover {
+    background-color: #ff3333;
+}

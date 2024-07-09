@@ -17,17 +17,38 @@ const Signup = () => {
         setErrors({ ...errors, [name]: "" }); // Clear previous errors
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const newErrors = validateForm(formData);
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
         } else {
-            // Submit the form or perform further actions
-            console.log("Form submitted successfully:", formData);
-            saveDataToLocalStorage(formData);
-            // Redirect to login page after signup using Link component
-            window.location.href = "/login";
+            try {
+                // Fetch existing users
+                const response = await fetch("http://localhost:3001/posts");
+                const users = await response.json();
+                const nextId = users.length ? Math.max(...users.map(user => user.id)) + 1 : 1;
+
+                // Add id to the formData
+                const newUser = { ...formData, id: nextId };
+
+                const postResponse = await fetch("http://localhost:3001/posts", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(newUser)
+                });
+                if (postResponse.ok) {
+                    console.log("Form submitted successfully:", newUser);
+                    // Redirect to login page after signup using window.location.href
+                    window.location.href = "/login";
+                } else {
+                    console.error("Failed to submit form data");
+                }
+            } catch (error) {
+                console.error("Error submitting form data:", error);
+            }
         }
     };
 
@@ -35,19 +56,12 @@ const Signup = () => {
         let errors = {};
 
         // Validate username, mobile, email, password here...
+        if (!data.username) errors.username = "Username is required";
+        if (!data.mobile) errors.mobile = "Mobile number is required";
+        if (!data.email) errors.email = "Email is required";
+        if (!data.password) errors.password = "Password is required";
 
         return errors;
-    };
-
-    const saveDataToLocalStorage = (formData) => {
-        // Fetch existing data from local storage
-        const storedData = JSON.parse(localStorage.getItem('userData')) || [];
-
-        // Add new data to the existing array
-        storedData.push(formData);
-
-        // Save updated array back to local storage
-        localStorage.setItem('userData', JSON.stringify(storedData));
     };
 
     return (

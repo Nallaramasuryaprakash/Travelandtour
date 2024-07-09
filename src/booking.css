@@ -124,12 +124,14 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     z-index: 1100; /* Ensure modal content is above the background */
 }
+
 .background {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh; /* Set the height to 100% of the viewport height */
 }
+
 .booking-container {
     padding: 20px;
     border: 1px solid #ccc;
@@ -141,5 +143,7 @@
     background-color: rgba(255, 255, 255, 0.8); /* Add a background color with opacity */
     backdrop-filter: blur(60px); /* Apply blur only to the background */
 }
-
-
+#persons{
+    margin-left: 10px;
+    margin-right: 10px;
+}

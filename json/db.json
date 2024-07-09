@@ -1,0 +1,192 @@
+{
+    "posts": [
+      {
+        "id": "1",
+        "username": "prakash",
+        "mobile": "7093380257",
+        "email": "prakashnalla04@gmail.com",
+        "password": "123456"
+      },
+      {
+        "id": 2,
+        "username": "teja",
+        "mobile": "7893220059",
+        "email": "nallaprakash143@gmail.com",
+        "password": "123456"
+      }
+    ],
+    "comments": [
+      {
+        "id": "1",
+        "body": "some comment",
+        "postId": 1
+      }
+    ],
+    "profile": {
+      "name": "typicode"
+    },
+    "locations": [
+      {
+        "id": "1",
+        "imgSrc": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1d/10/74/8b/bungalows-facing-mont.jpg?w=700&h=-1&s=1",
+        "destTitle": "Bora Bora",
+        "location": "New Zealand",
+        "grade": "CULTURAL RELAX",
+        "fees": "₹27000",
+        "description": "Bora Bora is a small island located in French Polynesia, not in New Zealand but in the Pacific Ocean. It is famous for its stunning natural beauty, including crystal-clear turquoise waters, lush greenery, and iconic overwater bungalows. Bora Bora is a popular destination for honeymooners and travelers seeking a luxurious and picturesque tropical getaway."
+      },
+      {
+        "id": "2",
+        "imgSrc": "https://etabroad.com/wp-content/uploads/2019/09/Kyoto-Fushimi-Inari-Shrine.jpg",
+        "destTitle": "Kyoto",
+        "location": "Japan",
+        "grade": "CULTURAL EXPERIENCE",
+        "fees": "₹23000",
+        "description": "Kyoto is a historic city in Japan famous for its traditional temples, beautiful gardens, and preserved wooden architecture. It offers a rich cultural experience for travelers interested in Japanese history and traditions."
+      },
+      {
+        "id": "3",
+        "imgSrc": "https://media2.thrillophilia.com/images/photos/000/179/384/original/1573885213_shutterstock_1169919292.jpg?width=975&height=600",
+        "destTitle": "Maui",
+        "location": "Hawaii",
+        "grade": "BEACH PARADISE",
+        "fees": "₹12000",
+        "description": "Maui is a picturesque island in Hawaii known for its stunning beaches, scenic drives along the Hana Highway, and breathtaking sunsets. It's a popular destination for beach lovers and outdoor enthusiasts."
+      },
+      {
+        "id": "4",
+        "imgSrc": "https://static.toiimg.com/thumb/38602755.cms?resizemode=75&width=1200&height=900",
+        "destTitle": "Paris",
+        "location": "France",
+        "grade": "CITY OF ROMANCE",
+        "fees": "₹25000",
+        "description": "Paris is the capital of France and is known worldwide as the City of Love. It's famous for its iconic landmarks like the Eiffel Tower, Louvre Museum, and Notre-Dame Cathedral, making it a romantic destination for couples."
+      },
+      {
+        "id": "5",
+        "imgSrc": "https://www.shutterstock.com/image-photo/pura-ulun-danu-bratan-hindu-600nw-380725909.jpg",
+        "destTitle": "Bali",
+        "location": "Indonesia",
+        "grade": "TROPICAL PARADISE",
+        "fees": "₹20000",
+        "description": "Bali is an Indonesian island known for its lush rice terraces, volcanic mountains, vibrant culture, and beautiful beaches. It's a popular destination for travelers seeking a tropical paradise experience."
+      },
+      {
+        "id": "6",
+        "imgSrc": "https://149990825.v2.pressablecdn.com/wp-content/uploads/2023/09/Rio-752x630.jpg",
+        "destTitle": "Rio de Janeiro",
+        "location": "Brazil",
+        "grade": "VIBRANT CITY LIFE",
+        "fees": "₹15000",
+        "description": "Rio de Janeiro is a vibrant city in Brazil known for its lively Carnival festival, Copacabana beach, Sugarloaf Mountain, and iconic Christ the Redeemer statue. It offers a mix of cultural experiences and natural beauty."
+      },
+      {
+        "id": "7",
+        "imgSrc": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/10/2e/1e/cape-town.jpg?w=1200&h=-1&s=1",
+        "destTitle": "Cape Town",
+        "location": "South Africa",
+        "grade": "SCENIC BEAUTY",
+        "fees": "₹10000",
+        "description": "Cape Town is a coastal city in South Africa known for its stunning natural beauty, including Table Mountain, beautiful beaches, and vibrant waterfront. It's a great destination for nature lovers and outdoor enthusiasts."
+      },
+      {
+        "id": "8",
+        "imgSrc": "https://media.radissonhotels.net/image/destination-pages/local-attraction/16256-118729-f63243387_3xl.jpg?impolicy=Card&gravity=South",
+        "destTitle": "Amsterdam",
+        "location": "Netherlands",
+        "grade": "CULTURAL HERITAGE",
+        "fees": "₹20000",
+        "description": "Amsterdam is the capital of the Netherlands and is famous for its picturesque canals, historic architecture, vibrant art scene, and cycling culture. It offers a rich cultural heritage experience for travelers."
+      },
+      {
+        "id": "9",
+        "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Dubai_Skylines_at_night_%28Pexels_3787839%29.jpg/640px-Dubai_Skylines_at_night_%28Pexels_3787839%29.jpg",
+        "destTitle": "Dubai",
+        "location": "United Arab Emirates",
+        "grade": "MODERN LUXURY",
+        "fees": "₹25000",
+        "description": "Dubai is a modern city in the United Arab Emirates known for its luxury shopping, futuristic architecture, lively nightlife, and desert adventures. It's a top destination for luxury travelers and those seeking a blend of modernity and tradition."
+      },
+      {
+        "id": "10",
+        "imgSrc": "https://static.toiimg.com/photo/69144907.cms",
+        "destTitle": "Charminar",
+        "location": "Hyderabad",
+        "grade": "HISTORIC ARCHITECTURE",
+        "fees": "₹500",
+        "description": "Charminar is a historic monument located in Hyderabad, India. Built in 1591 by Sultan Muhammad Quli Qutb Shah, it is known for its magnificent architecture and grandeur. The structure consists of four minarets and four grand arches, each facing a different street. Charminar is a symbol of Hyderabad's rich cultural heritage and is surrounded by bustling markets known for their bangles, pearls, and traditional Hyderabadi cuisine."
+      },
+      {
+        "id": "11",
+        "imgSrc": "https://www.savaari.com/blog/wp-content/uploads/2022/10/Golkonda-fort.jpg",
+        "destTitle": "Golconda Fort",
+        "location": "Hyderabad",
+        "grade": "Ancient Fortification",
+        "fees": "₹300",
+        "description": "Golconda Fort is a sprawling fortress known for its impressive architecture and historical importance. It offers panoramic views of the city.Golconda was the principal capital of the Qutub Shahi kings. The inner fort contains ruins of palaces, mosques and a hill top pavilion, which rises about 130 meters high and gives a bird's eye view of other buildings. Golconda fort is undoubtedly one of most magnificent fortress complexes in India."
+      },
+      {
+        "id": "12",
+        "imgSrc": "https://map.sahapedia.org/admin/assets/images/202205714233579Hussain_Sagar_lake__Hyderabad.jpg",
+        "destTitle": "Hussain Sagar",
+        "location": "Hyderabad",
+        "grade": "Urban Lake",
+        "fees": "₹400",
+        "description": "Hussain Sagar was the main source of water supply to Hyderabad before Himayat Sagar and Osman Sagar were built on river Musi. The Buddha statue was chiseled out of a white granite rock, weighing 450 tons. It was carved by 200 sculptors for two years. The statue was transported to Hyderabad in November 1988."
+      },
+      {
+        "id": "13",
+        "imgSrc": "https://www.ramojifilmcity.com/images/images/things-todo-attractions-rmm.jpg",
+        "destTitle": "Ramoji Film City",
+        "location": "Hyderabad",
+        "grade": "Film City",
+        "fees": "₹3000",
+        "description": "Ramoji Film City is the world's largest film studio complex located in Hyderabad. It offers guided tours where visitors can view various film sets, gardens, hotels, and theme-based amusement parks. The film city is a major tourist attraction and a popular destination for film shoots."
+      },
+      {
+        "id": "14",
+        "imgSrc": "https://map.sahapedia.org/admin/assets/images/202105191621412730_Banner.jpg?__imr__=bannerMuseum",
+        "destTitle": "Salar Jung Museum",
+        "location": "Hyderabad",
+        "grade": "Museum",
+        "fees": "₹800",
+        "description": "The Salar Jung Museum is an art museum located at Dar-ul-Shifa, on the southern bank of the Musi River. It houses one of the largest one-man collections of antiques in the world. The collection includes sculptures, paintings, carvings, textiles, manuscripts, ceramics, metallic artifacts, carpets, clocks, and furniture from different parts of the world."
+      },
+      {
+        "id": "15",
+        "imgSrc": "https://static.toiimg.com/thumb/58458206.cms?resizemode=75&width=1200&height=900",
+        "destTitle": "Chowmahalla Palace",
+        "location": "Hyderabad",
+        "grade": "Palace",
+        "fees": "₹600",
+        "description": "Chowmahalla Palace was the seat of the Asaf Jahi dynasty and was the official residence of the Nizams of Hyderabad during their reign. The palace complex consists of four palaces and is renowned for its unique style and elegance, influenced by Persian, Indo-Saracenic, Rajasthani, and European architecture."
+      },
+      {
+        "id": "16",
+        "imgSrc": "https://media.telanganatoday.com/wp-content/uploads/2023/10/shilparamam-uppal.jpg",
+        "destTitle": "Shilparamam",
+        "location": "Hyderabad",
+        "grade": "Cultural Village",
+        "fees": "₹500",
+        "description": "Shilparamam is an arts and crafts village located in Hyderabad. It is a cultural hub that showcases various traditional arts and crafts from across India. The village hosts numerous exhibitions, workshops, and cultural events, promoting the rich heritage of Indian crafts."
+      },
+      {
+        "id": "17",
+        "imgSrc": "https://www.trawell.in/admin/images/upload/249844919BorraCaves_Main.jpg",
+        "destTitle": "Borra Caves",
+        "location": "Andhra Pradesh",
+        "grade": "Caves",
+        "fees": "₹2000",
+        "description": "Borra Caves, located in the Ananthagiri Hills of the Araku Valley, are known for their impressive stalactites and stalagmites. Discovered in 1807 by William King George of the Geological Survey of India, these limestone caves are a major attraction due to their unique formations and historical significance."
+      },
+      {
+        "id": "18",
+        "imgSrc": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSftym_MxVQ_QX70usTzMbf8nYaqS2dr2GRlw&s",
+        "destTitle": "Warangal Fort",
+        "location": "Warangal",
+        "grade": "Fort",
+        "fees": "₹300",
+        "description": "Warangal Fort is an ancient fort built during the Kakatiya dynasty. The fort complex includes impressive stone gateways, temples, and intricate sculptures. It is a popular tourist destination and offers a glimpse into the rich history and architectural heritage of the Kakatiya period."
+      }
+    ]
+  }

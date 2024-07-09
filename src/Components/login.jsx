@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./login.css";
 
-const Login = ({ setUsername }) => {
+const Login = ({ setUsername, setIsLoggedIn }) => {
     const [formData, setFormData] = useState({ username: "", password: "" });
     const [error, setError] = useState("");
 
@@ -12,24 +12,29 @@ const Login = ({ setUsername }) => {
         setError("");
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const { username, password } = formData;
 
-        // Retrieve data from local storage
-        const storedData = JSON.parse(localStorage.getItem("userData")) || [];
+        try {
+            const response = await fetch("http://localhost:3001/posts");
+            const users = await response.json();
 
-        // Check if the entered credentials match with stored data
-        const user = storedData.find(
-            (user) => user.username === username && user.password === password
-        );
+            const user = users.find(
+                (user) => user.username === username && user.password === password
+            );
 
-        if (user) {
-            localStorage.setItem("username", username); // Store username in local storage
-            setUsername(username); // Set username in parent component
-            window.location.href = "/"; // Redirect to homepage
-        } else {
-            setError("Invalid username or password"); // Display error if credentials do not match
+            if (user) {
+                setUsername(username);
+                setIsLoggedIn(true);
+                localStorage.setItem("username", username); // Save username to local storage
+                window.location.href = "/"; // Redirect to homepage
+            } else {
+                setError("Invalid username or password");
+            }
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+            setError("An error occurred. Please try again later.");
         }
     };
 

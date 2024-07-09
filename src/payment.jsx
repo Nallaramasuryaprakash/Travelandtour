@@ -1,82 +1,93 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import "./payment.css";
 
-const Payment = ({ itemData, handlePayment }) => {
+const Payment = ({ itemData, fees }) => {
     const [paymentMethod, setPaymentMethod] = useState(null);
     const [upiId, setUpiId] = useState("");
+    const [cardNumber, setCardNumber] = useState("");
     const [expiryDate, setExpiryDate] = useState("");
     const [cvv, setCvv] = useState("");
     const [cardHolderName, setCardHolderName] = useState("");
     const [otp, setOtp] = useState("");
     const [showOtpInput, setShowOtpInput] = useState(false);
     const navigate = useNavigate();
-    const [showPaymentModal, setShowPaymentModal] = useState(true); // State to control the visibility of the Payment modal
+    const [showPaymentModal, setShowPaymentModal] = useState(true);
 
-    // Function to handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
         if (paymentMethod === 'UPI' && !validateUPI(upiId)) {
             alert("Invalid UPI ID format. Please enter a valid UPI ID.");
             return;
         }
-        setShowOtpInput(true); // Show OTP input after payment method selection
+        if (paymentMethod === 'UPI') {
+            alert(`Booking confirmed. Total amount: ₹${fees}.`);
+            navigate('/');
+            setShowPaymentModal(false);
+        } else {
+            setShowOtpInput(true);
+        }
     };
 
-    // Function to handle OTP submission
     const handleOtpSubmit = (e) => {
         e.preventDefault();
         if (otp.length !== 6) {
             alert("Please enter a 6-digit OTP.");
             return;
         }
-        // Add logic for booking confirmation here
-        alert("Booking confirmed.");
-        navigate('/'); // Redirect to home page
-        setShowPaymentModal(false); // Hide the Payment modal after payment completion
+        alert(`Booking confirmed. Total amount: ₹${fees}.`);
+        navigate('/');
+        setShowPaymentModal(false);
     };
 
-    // Function to handle payment method selection
     const handlePaymentMethod = (method) => {
         setPaymentMethod(method);
     };
 
-    // Custom validation function for UPI ID format
     const validateUPI = (upi) => {
-        const pattern = /^[a-zA-Z0-9]+@[a-zA-Z]+$/;
-        return pattern.test(upi);
+        return true; // You can implement UPI validation logic here
     };
 
-    // Function to format expiry date with slash automatically
+    const handleCancel = () => {
+        setShowPaymentModal(false);
+        navigate(-1);
+    };
+
     const handleExpiryDateChange = (e) => {
         const inputDate = e.target.value;
         const formattedDate = inputDate
-            .replace(/\D/g, '') // Remove non-numeric characters
-            .slice(0, 4) // Limit to MM/YY format
-            .replace(/(\d{2})(\d)/, '$1/$2'); // Add slash after the second digit
+            .replace(/\D/g, '')
+            .slice(0, 4)
+            .replace(/(\d{2})(\d)/, '$1/$2');
         setExpiryDate(formattedDate);
+    };
+
+    const handleCardNumberChange = (e) => {
+        const input = e.target.value.replace(/\D/g, '');
+        const formattedInput = input.replace(/(.{4})/g, '$1 ').trim();
+        setCardNumber(formattedInput);
     };
 
     return (
         <div className={`payment-modal ${showPaymentModal ? 'show' : ''}`}>
-            <div className="payment-backdrop" onClick={() => setShowPaymentModal(false)}></div>
+            <div className="payment-backdrop" onClick={handleCancel}></div>
             <div className="payment-container">
                 <h2>Payment Details</h2>
-                {/* Display trip details and payment form */}
                 <div className="trip-details">
                     <h3>Trip Details</h3>
                     <p>Destination: {itemData?.destTitle}</p>
                     <p>Location: {itemData?.location}</p>
-                    <p>Fees: {itemData?.fees}</p>
+                    <p>Fees: ₹{fees}</p>
+                    <p>Number of Persons: {itemData?.numberOfPersons}</p>
                 </div>
-                {/* Payment method selection */}
-                <div className="payment-methods">
-                    <button onClick={() => handlePaymentMethod('UPI')}>Pay with UPI</button>
-                    <button onClick={() => handlePaymentMethod('Card')} style={{marginLeft:"10px"}}>Pay with Card</button>
-                </div>
-                {/* Payment form */}
+                {!paymentMethod && (
+                    <div className="payment-methods">
+                        <button onClick={() => handlePaymentMethod('UPI')}>Pay with UPI</button>
+                        <button onClick={() => handlePaymentMethod('Card')} style={{ marginLeft: "10px" }}>Pay with Card</button>
+                    </div>
+                )}
                 {paymentMethod && !showOtpInput && (
                     <form onSubmit={handleSubmit}>
-                        {/* Payment form inputs */}
                         {paymentMethod === 'UPI' && (
                             <div>
                                 <label htmlFor="upiId">UPI ID:</label>
@@ -93,7 +104,15 @@ const Payment = ({ itemData, handlePayment }) => {
                             <>
                                 <div>
                                     <label htmlFor="cardNumber">Card Number:</label>
-                                    <input type="text" id="cardNumber" maxLength="12" minLength="12" required />
+                                    <input
+                                        type="text"
+                                        id="cardNumber"
+                                        value={cardNumber}
+                                        onChange={handleCardNumberChange}
+                                        maxLength="19"
+                                        placeholder="XXXX XXXX XXXX XXXX"
+                                        required
+                                    />
                                 </div>
                                 <div>
                                     <label htmlFor="cardHolderName">Cardholder Name:</label>
@@ -112,7 +131,7 @@ const Payment = ({ itemData, handlePayment }) => {
                                         id="expiryDate"
                                         value={expiryDate}
                                         onChange={handleExpiryDateChange}
-                                        maxLength="5" // Limit input to MM/YY format
+                                        maxLength="5"
                                         placeholder="MM/YY"
                                         required
                                     />
@@ -125,16 +144,17 @@ const Payment = ({ itemData, handlePayment }) => {
                                         value={cvv}
                                         onChange={(e) => setCvv(e.target.value)}
                                         maxLength="3"
-                                        minLength="3"
                                         required
                                     />
                                 </div>
                             </>
                         )}
-                        <button type="submit">Pay Now</button>
+                        <div className="payment-buttons">
+                            <button type="submit">Pay Now</button>
+                            <button type="button" onClick={handleCancel} className="cancel-button">Cancel</button>
+                        </div>
                     </form>
                 )}
-                {/* OTP input */}
                 {showOtpInput && (
                     <form onSubmit={handleOtpSubmit}>
                         <div>
@@ -145,11 +165,13 @@ const Payment = ({ itemData, handlePayment }) => {
                                 value={otp}
                                 onChange={(e) => setOtp(e.target.value)}
                                 maxLength="6"
-                                minLength="6"
                                 required
                             />
                         </div>
-                        <button type="submit">Confirm Booking</button>
+                        <div className="payment-buttons">
+                            <button type="submit">Confirm Booking</button>
+                            <button type="button" onClick={handleCancel} className="cancel-button">Cancel</button>
+                        </div>
                     </form>
                 )}
             </div>
