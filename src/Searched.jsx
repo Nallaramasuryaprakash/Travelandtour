@@ -22,23 +22,34 @@ const Searched = () => {
         navigate('/booking', { state: { itemData } });
     };
 
+    const handleGoBack = () => {
+        navigate(-1); // Navigate back to the previous page
+    };
+
     return (
         <div className="searched-container">
-            {filteredData.map(item => (
-                <div key={item.id} className="card">
-                    <img src={item.imgSrc} alt={item.destTitle} />
-                    <div className="card-content">
-                        <h2>{item.destTitle}</h2>
-                        <p>{item.description}</p>
-                        <div className="card-info">
-                            <span>{item.location}</span>
-                            <span>{item.grade}</span>
-                            <span>{item.fees}</span>
-                        </div>
-                        <button className="book-now-button" onClick={() => handleBookNow(item)}>Book Now</button>
-                    </div>
+            {filteredData.length === 0 ? (
+                <div className="no-data">
+                    <h2>No data found</h2>
+                    <button className="go-back-button" onClick={handleGoBack}>Go Back</button>
                 </div>
-            ))}
+            ) : (
+                filteredData.map(item => (
+                    <div key={item.id} className="card">
+                        <img src={item.imgSrc} alt={item.destTitle} />
+                        <div className="card-content">
+                            <h2>{item.destTitle}</h2>
+                            <p>{item.description}</p>
+                            <div className="card-info">
+                                <span>{item.location}</span>
+                                <span>{item.grade}</span>
+                                <span>{item.fees}</span>
+                            </div>
+                            <button className="book-now-button" onClick={() => handleBookNow(item)}>Book Now</button>
+                        </div>
+                    </div>
+                ))
+            )}
         </div>
     );
 };

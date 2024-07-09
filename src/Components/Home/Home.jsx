@@ -127,7 +127,7 @@ const Home = () => {
                             <h3 className="total">₹{maxPrice}</h3>
                         </div>
                         <div className="input flex">
-                            <input type="range" max="5000" min="500" value={maxPrice} onChange={handlePriceChange} />
+                            <input type="range" max="30000" min="100" value={maxPrice} onChange={handlePriceChange} />
                         </div>
                     </div>
 

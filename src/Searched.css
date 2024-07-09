@@ -5,6 +5,38 @@
   padding: 20px;
 }
 
+.no-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height to center the content vertically */
+  text-align: center;
+}
+
+.no-data h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.go-back-button {
+  background-color: #ff7f50; /* Change to your preferred color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  width: auto;
+  text-align: center; /* Center the text */
+}
+
+.go-back-button:hover {
+  background-color: #ff6347; /* Change to your preferred hover color */
+}
+
 .card {
   background-color: #fff;
   border: 1px solid #ccc;
