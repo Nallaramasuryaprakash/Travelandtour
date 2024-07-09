@@ -26,7 +26,7 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-        fetch('http://localhost:3001/locations')
+        fetch('https://json-server-data-1.onrender.com/locations')
             .then(response => response.json())
             .then(data => {
                 const uniqueLocations = removeDuplicates(data);

@@ -25,14 +25,14 @@ const Signup = () => {
         } else {
             try {
                 // Fetch existing users
-                const response = await fetch("http://localhost:3001/posts");
+                const response = await fetch("https://json-server-data-1.onrender.com/users");
                 const users = await response.json();
                 const nextId = users.length ? Math.max(...users.map(user => user.id)) + 1 : 1;
 
                 // Add id to the formData
                 const newUser = { ...formData, id: nextId };
 
-                const postResponse = await fetch("http://localhost:3001/posts", {
+                const postResponse = await fetch("https://json-server-data-1.onrender.com/users", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

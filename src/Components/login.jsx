@@ -17,7 +17,7 @@ const Login = ({ setUsername, setIsLoggedIn }) => {
         const { username, password } = formData;
 
         try {
-            const response = await fetch("http://localhost:3001/posts");
+            const response = await fetch("https://json-server-data-1.onrender.com/users");
             const users = await response.json();
 
             const user = users.find(
