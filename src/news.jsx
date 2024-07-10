@@ -1,8 +1,11 @@
 import React from "react";
 import "./news.css";
+import Navbar from "./Components/Navbar/Navbar";
 
 const News = () => {
     return (
+        <>
+        <Navbar/>
         <div className="newsContainer">
             <h2>Latest News</h2>
             <div className="newsItem">
@@ -41,6 +44,7 @@ const News = () => {
                 </ul>
             </div>
         </div>
+    </>
     );
 };
 

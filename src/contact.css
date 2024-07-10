@@ -9,6 +9,8 @@ body {
     align-items: flex-start; /* Align items to the top */
     padding: 20px;
     color: inherit; /* Inherit font color from body */
+    position: relative;
+    top: 60px;
   }
   
   .contact-info {

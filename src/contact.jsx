@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./contact.css";
+import Navbar from "./Components/Navbar/Navbar";
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -53,6 +54,8 @@ const Contact = () => {
     };
 
     return (
+        <>
+        <Navbar/>
         <section className="contact-container">
             <div className="contact-info">
                 <h2>Contact Us</h2>
@@ -76,6 +79,7 @@ const Contact = () => {
                 </form>
             </div>
         </section>
+    </>
     );
 };
 

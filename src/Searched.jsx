@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DataContext } from "./Assets/Datacontext";
 import './Searched.css';
+import Navbar from "./Components/Navbar/Navbar";
 
 const Searched = () => {
     const location = useLocation();
@@ -27,6 +28,8 @@ const Searched = () => {
     };
 
     return (
+        <>
+        <Navbar/>
         <div className="searched-container">
             {filteredData.length === 0 ? (
                 <div className="no-data">
@@ -51,6 +54,7 @@ const Searched = () => {
                 ))
             )}
         </div>
+    </>
     );
 };
 

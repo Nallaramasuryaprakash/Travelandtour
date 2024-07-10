@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { DataContext } from "./Assets/Datacontext"; // Import DataContext
 import "./details.css";
+import Navbar from "./Components/Navbar/Navbar";
 
 const Details = () => {
     const { destTitle } = useParams();
@@ -19,6 +20,8 @@ const Details = () => {
     }
 
     return (
+        <>
+        <Navbar className="Navbar"/>
         <div className="Single">
             <div className="imgDiv">
                 <img src={item.imgSrc} alt={item.destTitle} />
@@ -42,6 +45,7 @@ const Details = () => {
             </div>
             <button id="con" onClick={handleContinue}>Continue</button>
         </div>
+    </>
     );
 };
 

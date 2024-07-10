@@ -1,9 +1,9 @@
 .newsContainer {
-    margin: 20px;
     padding: 20px;
     border: 1px solid #ccc;
-    border-radius: 8px;
     background-color: #f9f9f9;
+    position: relative;
+    top: 70px;
 }
 
 .newsItem {

@@ -1,8 +1,11 @@
 import React from "react";
 import "./about.css";
+import Navbar from "./Components/Navbar/Navbar";
 
 const About = () => {
     return (
+        <>
+        <Navbar/>
         <div className="aboutContainer">
             <h2>About Us</h2>
             <p>Welcome to our travel and tour services!</p>
@@ -37,6 +40,7 @@ const About = () => {
                 We're here to help make your travel dreams come true.
             </p>
         </div>
+        </>
     );
 };
 

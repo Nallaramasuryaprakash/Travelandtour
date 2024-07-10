@@ -4,11 +4,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    margin: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
     overflow: hidden;
     padding: 10px;
+    position: relative;
+    top: 90px;
+
 }
 
 .imgDiv {

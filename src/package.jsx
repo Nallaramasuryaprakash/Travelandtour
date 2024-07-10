@@ -1,5 +1,6 @@
 import React from "react";
 import "./package.css";
+import Navbar from "./Components/Navbar/Navbar";
 
 const Package = () => {
     const packages = [
@@ -60,6 +61,8 @@ const Package = () => {
   ];
 
     return (
+        <>
+        <Navbar/>
         <section className="package-container">
             {packages.map((pkg) => (
                 <div key={pkg.id} className="package-card">
@@ -70,6 +73,7 @@ const Package = () => {
                 </div>
             ))}
         </section>
+     </>
     );
 };
 
