@@ -2,11 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import './home.css';
 import video from '../../Assets/video.mp4';
 import { GrLocation } from "react-icons/gr";
-import { FiFacebook } from "react-icons/fi";
-import { AiOutlineInstagram } from "react-icons/ai";
-import { SiTripadvisor } from "react-icons/si";
-import { BsListTask } from "react-icons/bs";
-import { TbApps } from "react-icons/tb";
+import { AiFillInstagram, AiFillYoutube, AiOutlineTwitter } from 'react-icons/ai';
+import { FaTripadvisor } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import Aos from "aos";
 import 'aos/dist/aos.css';
@@ -119,18 +116,18 @@ const Home = () => {
                         </div>
                         {(showLocationList || showAllLocations) && (
                             <div className="locationList" ref={locationListRef}>
-                                {(filteredLocations.length > 0 || showAllLocations) ? 
+                                {(filteredLocations.length > 0 || showAllLocations) ?
                                     (filteredLocations.length > 0 ? filteredLocations : locations).map((location, index) => (
-                                    <div
-                                        key={index}
-                                        className="locationItem"
-                                        onClick={() => handleLocationSelect(location.location)}
-                                    >
-                                        {location.location}
-                                    </div>
-                                )) : (
-                                    <div className="locationItem">No locations found</div>
-                                )}
+                                        <div
+                                            key={index}
+                                            className="locationItem"
+                                            onClick={() => handleLocationSelect(location.location)}
+                                        >
+                                            {location.location}
+                                        </div>
+                                    )) : (
+                                        <div className="locationItem">No locations found</div>
+                                    )}
                             </div>
                         )}
                     </div>
@@ -152,13 +149,10 @@ const Home = () => {
 
                 <div data-aos="fade-up" className="homeFooterIcons flex">
                     <div className="rightIcons">
-                        <FiFacebook className="icon" />
-                        <AiOutlineInstagram className="icon" />
-                        <SiTripadvisor className="icon" />
-                    </div>
-                    <div className="leftIcons">
-                        <BsListTask className="icon" />
-                        <TbApps className="icon" />
+                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><AiOutlineTwitter className="icon" /></a>
+                        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer"><AiFillYoutube className="icon" /></a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><AiFillInstagram className="icon" /></a>
+                        <a href="https://tripadvisor.com" target="_blank" rel="noopener noreferrer"><FaTripadvisor className="icon" /></a>
                     </div>
                 </div>
             </div>
