@@ -23,6 +23,10 @@
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(2, 15, 29, 0.246);
 }
+.logoDiv .logo h1
+{
+  cursor:default;
+}
 .header .logo {
   color: var(--blackColor);
   font-weight: 600;
