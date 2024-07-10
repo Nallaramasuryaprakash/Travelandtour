@@ -27,24 +27,38 @@ const Signup = () => {
                 // Fetch existing users
                 const response = await fetch("https://json-server-data-1.onrender.com/users");
                 const users = await response.json();
-                const nextId = users.length ? Math.max(...users.map(user => user.id)) + 1 : 1;
 
-                // Add id to the formData
-                const newUser = { ...formData, id: nextId };
+                // Check for existing username, mobile, email
+                const usernameExists = users.some(user => user.username === formData.username);
+                const mobileExists = users.some(user => user.mobile === formData.mobile);
+                const emailExists = users.some(user => user.email === formData.email);
 
-                const postResponse = await fetch("https://json-server-data-1.onrender.com/users", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(newUser)
-                });
-                if (postResponse.ok) {
-                    console.log("Form submitted successfully:", newUser);
-                    // Redirect to login page after signup using window.location.href
-                    window.location.href = "/login";
+                if (usernameExists) {
+                    setErrors({ username: "Username already exists" });
+                } else if (mobileExists) {
+                    setErrors({ mobile: "Mobile number already exists" });
+                } else if (emailExists) {
+                    setErrors({ email: "Email already exists" });
                 } else {
-                    console.error("Failed to submit form data");
+                    const nextId = users.length ? Math.max(...users.map(user => user.id)) + 1 : 1;
+
+                    // Add id to the formData
+                    const newUser = { ...formData, id: nextId };
+
+                    const postResponse = await fetch("https://json-server-data-1.onrender.com/users", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(newUser)
+                    });
+                    if (postResponse.ok) {
+                        console.log("Form submitted successfully:", newUser);
+                        // Redirect to login page after signup using window.location.href
+                        window.location.href = "/login";
+                    } else {
+                        console.error("Failed to submit form data");
+                    }
                 }
             } catch (error) {
                 console.error("Error submitting form data:", error);
@@ -101,7 +115,6 @@ const Signup = () => {
                 />
                 {errors.password && <span className="error">{errors.password}</span>}
                 <button type="submit">Signup</button>
-                {/* Use Link component for navigation */}
                 <p>If already registered, <Link to="/login">login here</Link>.</p>
             </form>
         </div>

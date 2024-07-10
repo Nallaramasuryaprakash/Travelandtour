@@ -20,17 +20,17 @@ const Login = ({ setUsername, setIsLoggedIn }) => {
             const response = await fetch("https://json-server-data-1.onrender.com/users");
             const users = await response.json();
 
-            const user = users.find(
-                (user) => user.username === username && user.password === password
-            );
+            const user = users.find((user) => user.username === username);
 
-            if (user) {
+            if (!user) {
+                setError("No account found with this username");
+            } else if (user.password !== password) {
+                setError("Invalid credentials");
+            } else {
                 setUsername(username);
                 setIsLoggedIn(true);
                 localStorage.setItem("username", username); // Save username to local storage
                 window.location.href = "/"; // Redirect to homepage
-            } else {
-                setError("Invalid username or password");
             }
         } catch (error) {
             console.error("Error fetching user data:", error);
