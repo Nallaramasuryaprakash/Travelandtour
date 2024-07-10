@@ -25,6 +25,9 @@ const App = () => {
         setIsLoggedIn(false);
         setUsername("");
     };
+    useEffect(() => {
+        document.title = "TravelAndTour";
+    }, []);
 
     useEffect(() => {
         const fetchUsername = async () => {
