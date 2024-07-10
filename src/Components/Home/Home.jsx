@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import './home.css';
 import video from '../../Assets/video.mp4';
 import { GrLocation } from "react-icons/gr";
@@ -8,7 +8,6 @@ import { SiTripadvisor } from "react-icons/si";
 import { BsListTask } from "react-icons/bs";
 import { TbApps } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
-
 import Aos from "aos";
 import 'aos/dist/aos.css';
 
@@ -20,6 +19,7 @@ const Home = () => {
     const [filteredLocations, setFilteredLocations] = useState([]);
     const [showAllLocations, setShowAllLocations] = useState(false);
     const navigate = useNavigate();
+    const locationListRef = useRef(null);
 
     useEffect(() => {
         Aos.init({ duration: 2000 });
@@ -77,6 +77,20 @@ const Home = () => {
         setShowAllLocations(prevState => !prevState);
     };
 
+    const handleClickOutside = (event) => {
+        if (locationListRef.current && !locationListRef.current.contains(event.target)) {
+            setShowLocationList(false);
+            setShowAllLocations(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutside, true);
+        return () => {
+            document.removeEventListener('click', handleClickOutside, true);
+        };
+    }, []);
+
     return (
         <section className="home">
             <div className="overlay"></div>
@@ -104,7 +118,7 @@ const Home = () => {
                             <GrLocation className="icon" onClick={handleLocationIconClick} />
                         </div>
                         {(showLocationList || showAllLocations) && (
-                            <div className="locationList">
+                            <div className="locationList" ref={locationListRef}>
                                 {(filteredLocations.length > 0 || showAllLocations) ? 
                                     (filteredLocations.length > 0 ? filteredLocations : locations).map((location, index) => (
                                     <div
