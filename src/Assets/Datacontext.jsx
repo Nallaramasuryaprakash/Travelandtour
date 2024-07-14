@@ -7,7 +7,7 @@ export const DataProvider = ({ children }) => {
 
     useEffect(() => {
         // Fetch data from JSON server
-        fetch('https://json-server-data-1.onrender.com/locations')
+        fetch('https://json-server-data-l9f6.onrender.com/locations')
             .then(response => response.json())
             .then(data => setData(data))
             .catch(error => console.error('Error fetching data:', error));

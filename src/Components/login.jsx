@@ -20,7 +20,7 @@ const Login = ({ setUsername, setIsLoggedIn }) => {
         const { username, password } = formData;
 
         try {
-            const response = await fetch("https://json-server-data-1.onrender.com/users");
+            const response = await fetch("https://json-server-data-l9f6.onrender.com/users");
             const users = await response.json();
 
             const user = users.find((user) => user.username === username);

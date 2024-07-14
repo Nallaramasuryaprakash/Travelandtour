@@ -25,7 +25,7 @@ const Signup = () => {
         } else {
             try {
                 // Fetch existing users
-                const response = await fetch("https://json-server-data-1.onrender.com/users");
+                const response = await fetch("https://json-server-data-l9f6.onrender.com/users");
                 const users = await response.json();
 
                 // Check for existing username, mobile, email
@@ -45,7 +45,7 @@ const Signup = () => {
                     // Add id to the formData
                     const newUser = { ...formData, id: nextId };
 
-                    const postResponse = await fetch("https://json-server-data-1.onrender.com/users", {
+                    const postResponse = await fetch("https://json-server-data-l9f6.onrender.com/users", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
