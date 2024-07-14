@@ -161,3 +161,9 @@
     height: auto;
   }
 }/*# sourceMappingURL=main.css.map */
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh; /* Full height to center vertically */
+}
