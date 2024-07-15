@@ -1,124 +1,82 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { auth, db } from "../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { collection, addDoc } from "firebase/firestore";
 import "../signup.css";
 
 const Signup = () => {
-    const [formData, setFormData] = useState({
-        username: "",
-        mobile: "",
-        email: "",
-        password: ""
-    });
-    const [errors, setErrors] = useState({});
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  });
+  const [errors, setErrors] = useState("");
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-        setErrors({ ...errors, [name]: "" }); // Clear previous errors
-    };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const newErrors = validateForm(formData);
-        if (Object.keys(newErrors).length > 0) {
-            setErrors(newErrors);
-        } else {
-            try {
-                // Fetch existing users
-                const response = await fetch("https://json-server-data-l9f6.onrender.com/users");
-                const users = await response.json();
+  const handleFocus = () => {
+    setErrors(""); // Clear errors when any input field is focused
+  };
 
-                // Check for existing username, mobile, email
-                const usernameExists = users.some(user => user.username === formData.username);
-                const mobileExists = users.some(user => user.mobile === formData.mobile);
-                const emailExists = users.some(user => user.email === formData.email);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { email, password } = formData;
 
-                if (usernameExists) {
-                    setErrors({ username: "Username already exists" });
-                } else if (mobileExists) {
-                    setErrors({ mobile: "Mobile number already exists" });
-                } else if (emailExists) {
-                    setErrors({ email: "Email already exists" });
-                } else {
-                    const nextId = users.length ? Math.max(...users.map(user => user.id)) + 1 : 1;
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-                    // Add id to the formData
-                    const newUser = { ...formData, id: nextId };
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        email,
+        // Avoid storing passwords in Firestore
+      });
 
-                    const postResponse = await fetch("https://json-server-data-l9f6.onrender.com/users", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(newUser)
-                    });
-                    if (postResponse.ok) {
-                        console.log("Form submitted successfully:", newUser);
-                        // Redirect to login page after signup using window.location.href
-                        window.location.href = "/login";
-                    } else {
-                        console.error("Failed to submit form data");
-                    }
-                }
-            } catch (error) {
-                console.error("Error submitting form data:", error);
-            }
-        }
-    };
+      console.log("User signed up successfully:", user);
 
-    const validateForm = (data) => {
-        let errors = {};
+      // Show alert for successful signup
+      alert("Signup successful!");
 
-        // Validate username, mobile, email, password here...
-        if (!data.username) errors.username = "Username is required";
-        if (!data.mobile) errors.mobile = "Mobile number is required";
-        if (!data.email) errors.email = "Email is required";
-        if (!data.password) errors.password = "Password is required";
+      // Redirect to login page after a short delay to ensure the alert is shown
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1000); // 1 second delay
 
-        return errors;
-    };
+    } catch (error) {
+      setErrors(error.message);
+      console.error("Error signing up:", error);
+    }
+  };
 
-    return (
-        <div className="signupContainer">
-            <h2>Signup</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={formData.username}
-                    onChange={handleChange}
-                />
-                {errors.username && <span className="error">{errors.username}</span>}
-                <input
-                    type="text"
-                    name="mobile"
-                    placeholder="Mobile Number"
-                    value={formData.mobile}
-                    onChange={handleChange}
-                />
-                {errors.mobile && <span className="error">{errors.mobile}</span>}
-                <input
-                    type="text"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                />
-                {errors.email && <span className="error">{errors.email}</span>}
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={formData.password}
-                    onChange={handleChange}
-                />
-                {errors.password && <span className="error">{errors.password}</span>}
-                <button type="submit">Signup</button>
-                <p>If already registered, <Link to="/login">login here</Link>.</p>
-            </form>
-        </div>
-    );
+  return (
+    <div className="signupContainer">
+      <h2>Signup</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          onFocus={handleFocus}
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          onFocus={handleFocus}
+        />
+        {errors && <span className="error">{errors}</span>}
+        <button type="submit">Signup</button>
+        <p>If already registered, <Link to="/login">login here</Link>.</p>
+      </form>
+    </div>
+  );
 };
 
 export default Signup;

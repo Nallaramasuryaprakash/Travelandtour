@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
 import { DataProvider } from "./Assets/Datacontext";
 import Details from "./details";
 import Signup from "./Components/signup";
@@ -18,99 +20,93 @@ import News from "./news";
 import "./app.css";
 
 const App = () => {
-    const [username, setUsername] = useState("");
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const handleLogout = () => {
+  const handleLogout = () => {
+    auth.signOut();
+    setIsLoggedIn(false);
+  };
+
+  useEffect(() => {
+    document.title = "TravelAndTour";
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
         setIsLoggedIn(false);
-        setUsername("");
-    };
-    useEffect(() => {
-        document.title = "TravelAndTour";
-    }, []);
+      }
+    });
 
-    useEffect(() => {
-        const fetchUsername = async () => {
-            try {
-                const response = await fetch('http://localhost:3001/posts');
-                const users = await response.json();
-                const loggedInUser = users.find(user => user.isLoggedIn);
-                if (loggedInUser) {
-                    setUsername(loggedInUser.username);
-                    setIsLoggedIn(true);
-                }
-            } catch (error) {
-                console.error('Failed to fetch username:', error);
-            }
-        };
+    return () => unsubscribe();
+  }, []);
 
-        fetchUsername();
-    }, []);
-
-    return (
-        <DataProvider>
-            <Router>
-                <Routes>
-                    <Route path="/details/:destTitle" element={<DetailsPage />} />
-                    <Route path="/signup" element={<Signup />} />
-                    <Route path="/login" element={<LoginPage setUsername={setUsername} setIsLoggedIn={setIsLoggedIn} />} />
-                    <Route path="/booking" element={<BookingPage setUsername={setUsername} username={username} />} />
-                    <Route path="/payment" element={<PaymentPage />} />
-                    <Route path="/" element={<HomePage username={username} handleLogout={handleLogout} />} />
-                    <Route path="/search" element={<SearchedPage />} />
-                    <Route path="/packages" element={<Package />} />
-                    <Route path="/contact" element={<ContactPage isLoggedIn={isLoggedIn} username={username} />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/news" element={<News />} />
-                </Routes>
-            </Router>
-        </DataProvider>
-    );
+  return (
+    <DataProvider>
+      <Router>
+        <Routes>
+          <Route path="/details/:destTitle" element={<DetailsPage />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/booking" element={<BookingPage />} />
+          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/" element={<HomePage handleLogout={handleLogout} isLoggedIn={isLoggedIn} />} />
+          <Route path="/search" element={<SearchedPage />} />
+          <Route path="/packages" element={<Package />} />
+          <Route path="/contact" element={<ContactPage isLoggedIn={isLoggedIn} />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/news" element={<News />} />
+        </Routes>
+      </Router>
+    </DataProvider>
+  );
 };
 
-const HomePage = ({ username, handleLogout }) => (
-    <>
-        <Navbar username={username} handleLogout={handleLogout} />
-        <Home />
-        <Main />
-        <Footer />
-    </>
+const HomePage = ({ handleLogout, isLoggedIn }) => (
+  <>
+    <Navbar handleLogout={handleLogout} isLoggedIn={isLoggedIn} />
+    <Home />
+    <Main />
+    <Footer />
+  </>
 );
 
 const DetailsPage = () => (
-    <>
-        <Details />
-    </>
+  <>
+    <Details />
+  </>
 );
 
-const LoginPage = ({ setUsername, setIsLoggedIn }) => (
-    <>
-        <Login setUsername={setUsername} setIsLoggedIn={setIsLoggedIn} />
-    </>
+const LoginPage = () => (
+  <>
+    <Login />
+  </>
 );
 
-const BookingPage = ({ setUsername, username }) => (
-    <>
-        <Booking setUsername={setUsername} username={username} />
-    </>
+const BookingPage = () => (
+  <>
+    <Booking />
+  </>
 );
 
 const PaymentPage = () => (
-    <>
-        <Payment />
-    </>
+  <>
+    <Payment />
+  </>
 );
 
 const SearchedPage = () => (
-    <>
-        <Searched />
-    </>
+  <>
+    <Searched />
+  </>
 );
 
-const ContactPage = ({ isLoggedIn, username }) => (
-    <>
-        <Contact isLoggedIn={isLoggedIn} username={username} />
-    </>
+const ContactPage = ({ isLoggedIn }) => (
+  <>
+    <Contact isLoggedIn={isLoggedIn} />
+  </>
 );
 
 export default App;

@@ -1,70 +1,74 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { auth } from "../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import "./login.css";
 
+const Login = ({ setIsLoggedIn }) => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  });
+  const [errors, setErrors] = useState("");
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
+  const handleFocus = () => {
+    setErrors(""); // Clear errors when any input field is focused
+  };
 
-const Login = ({ setUsername, setIsLoggedIn }) => {
-    const [formData, setFormData] = useState({ username: "", password: "" });
-    const [error, setError] = useState("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { email, password } = formData;
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-        setError("");
-    };
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const { username, password } = formData;
+      console.log("User logged in successfully:", user);
 
-        try {
-            const response = await fetch("https://json-server-data-l9f6.onrender.com/users");
-            const users = await response.json();
+      setIsLoggedIn(true);
 
-            const user = users.find((user) => user.username === username);
+      // Redirect to home page after a short delay to ensure the state is updated
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000); // 1 second delay
 
-            if (!user) {
-                setError("No account found with this username");
-            } else if (user.password !== password) {
-                setError("Invalid credentials");
-            } else {
-                setUsername(username);
-                setIsLoggedIn(true);
-                localStorage.setItem("username", username); // Save username to local storage
-                window.location.href = "/"; // Redirect to homepage
-            }
-        } catch (error) {
-            console.error("Error fetching user data:", error);
-            setError("An error occurred. Please try again later.");
-        }
-    };
+    } catch (error) {
+      setErrors(error.message);
+      console.error("Error logging in:", error);
+    }
+  };
 
-    return (
-        <div className="loginContainer">
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={formData.username}
-                    onChange={handleChange}
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={formData.password}
-                    onChange={handleChange}
-                />
-                {error && <span className="error">{error}</span>}
-                <button type="submit">Login</button>
-            </form>
-            <p>If not registered, <Link to="/signup">Signup here</Link>.</p>
-        </div>
-    );
+  return (
+    <div className="loginContainer">
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          onFocus={handleFocus}
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          onFocus={handleFocus}
+        />
+        {errors && <span className="error">{errors}</span>}
+        <button type="submit">Login</button>
+        <p>If not registered, <Link to="/signup">signup here</Link>.</p>
+      </form>
+    </div>
+  );
 };
 
 export default Login;

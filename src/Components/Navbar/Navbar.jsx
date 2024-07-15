@@ -4,18 +4,25 @@ import './navbar.css';
 import { SiYourtraveldottv } from "react-icons/si";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { TbGridDots } from "react-icons/tb";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
-const Navbar = ({ handleLogout }) => {
+const Navbar = () => {
+    const auth = getAuth();
     const [active, setActive] = useState('navBar');
-    const [username, setUsername] = useState('');
+    const [user, setUser] = useState(null);
     const [location, setLocation] = useState('Fetching location...');
 
     useEffect(() => {
-        // Retrieve username from local storage
-        const storedUsername = localStorage.getItem('username');
-        if (storedUsername) {
-            setUsername(storedUsername);
-        }
+        // Check if user is already authenticated
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUser(user);
+                localStorage.setItem('username', user.displayName || user.email);
+            } else {
+                setUser(null);
+                localStorage.removeItem('username');
+            }
+        });
 
         // Get user's current location
         if (navigator.geolocation) {
@@ -36,18 +43,9 @@ const Navbar = ({ handleLogout }) => {
             setLocation('Geolocation not supported');
         }
 
-        // Add event listener for beforeunload event
-        const handleBeforeUnload = () => {
-            localStorage.clear();
-        };
-
-        window.addEventListener('beforeunload', handleBeforeUnload);
-
-        // Cleanup event listener on component unmount
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, []);
+        // Cleanup function
+        return () => unsubscribe();
+    }, [auth]);
 
     const showNav = () => {
         setActive('navBar activeNavbar');
@@ -62,10 +60,16 @@ const Navbar = ({ handleLogout }) => {
         setActive(active === 'navBar' ? 'navBar activeUsername' : 'navBar');
     };
 
-    const handleLogoutClick = () => {
-        // Clear username from local storage and log out
-        localStorage.clear();
-        setUsername(''); // Reset username to empty string
+    const handleLogoutClick = async () => {
+        try {
+            await signOut(auth);
+            setUser(null);
+            localStorage.removeItem('username');
+            // Optionally, you can clear any other user-related state here
+            // Redirecting to '/login' is omitted to stay on the same page
+        } catch (error) {
+            console.error('Error signing out:', error);
+        }
     };
 
     const scrollToTop = () => {
@@ -106,10 +110,10 @@ const Navbar = ({ handleLogout }) => {
                             <Link to="/contact" className="navLink">Contact</Link>
                         </li>
 
-                        {username ? (
+                        {user ? (
                             <>
                                 <li className="navItem">
-                                    <span className="navLink" id="user" onClick={handleUsernameClick}>{username}</span>
+                                    <span className="navLink" id="user" onClick={handleUsernameClick}>{user.displayName || user.email}</span>
                                 </li>
                                 {active === 'navBar activeUsername' && (
                                     <li className="navItem">
