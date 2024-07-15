@@ -1,23 +1,18 @@
+// src/Components/Login.js
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import "../Components/login.css";
+import "./login.css";
 
 const Login = ({ setUsername, setIsLoggedIn }) => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: ""
-  });
-  const [errors, setErrors] = useState("");
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-  };
-
-  const handleFocus = () => {
-    setErrors(""); // Clear errors when any input field is focused
+    setError("");
   };
 
   const handleSubmit = async (e) => {
@@ -28,18 +23,11 @@ const Login = ({ setUsername, setIsLoggedIn }) => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      console.log("User logged in successfully:", user);
-
-      setUsername(user.email); // Set username to the email of the user
+      setUsername(user.email);
       setIsLoggedIn(true);
-
-      // Redirect to home page after a short delay to ensure the state is updated
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 1000); // 1 second delay
-
+      window.location.href = "/";
     } catch (error) {
-      setErrors(error.message);
+      setError("Invalid credentials");
       console.error("Error logging in:", error);
     }
   };
@@ -54,7 +42,6 @@ const Login = ({ setUsername, setIsLoggedIn }) => {
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
-          onFocus={handleFocus}
         />
         <input
           type="password"
@@ -62,12 +49,11 @@ const Login = ({ setUsername, setIsLoggedIn }) => {
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
-          onFocus={handleFocus}
         />
-        {errors && <span className="error">{errors}</span>}
+        {error && <span className="error">{error}</span>}
         <button type="submit">Login</button>
-        <p>If not registered, <Link to="/signup">signup here</Link>.</p>
       </form>
+      <p>If not registered, <Link to="/signup">Signup here</Link>.</p>
     </div>
   );
 };
