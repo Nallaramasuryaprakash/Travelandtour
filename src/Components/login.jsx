@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import "./login.css";
+import "../Components/login.css";
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = ({ setUsername, setIsLoggedIn }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -30,6 +30,7 @@ const Login = ({ setIsLoggedIn }) => {
 
       console.log("User logged in successfully:", user);
 
+      setUsername(user.email); // Set username to the email of the user
       setIsLoggedIn(true);
 
       // Redirect to home page after a short delay to ensure the state is updated
