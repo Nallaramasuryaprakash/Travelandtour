@@ -4,25 +4,19 @@ import './navbar.css';
 import { SiYourtraveldottv } from "react-icons/si";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { TbGridDots } from "react-icons/tb";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
 const Navbar = () => {
-    const auth = getAuth();
     const [active, setActive] = useState('navBar');
-    const [user, setUser] = useState(null);
     const [location, setLocation] = useState('Fetching location...');
+    const [username, setUsername] = useState('');
+    const [showOptions, setShowOptions] = useState(false);
 
     useEffect(() => {
-        // Check if user is already authenticated
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setUser(user);
-                localStorage.setItem('username', user.displayName || user.email);
-            } else {
-                setUser(null);
-                localStorage.removeItem('username');
-            }
-        });
+        // Retrieve username from localStorage if available
+        const storedUsername = localStorage.getItem('username');
+        if (storedUsername) {
+            setUsername(storedUsername);
+        }
 
         // Get user's current location
         if (navigator.geolocation) {
@@ -42,10 +36,7 @@ const Navbar = () => {
         } else {
             setLocation('Geolocation not supported');
         }
-
-        // Cleanup function
-        return () => unsubscribe();
-    }, [auth]);
+    }, []);
 
     const showNav = () => {
         setActive('navBar activeNavbar');
@@ -53,23 +44,21 @@ const Navbar = () => {
 
     const removeNavbar = () => {
         setActive('navBar');
+        setShowOptions(false); // Hide options when closing navbar
     }
 
     const handleUsernameClick = () => {
-        // Toggle the active state to show/hide the logout option
-        setActive(active === 'navBar' ? 'navBar activeUsername' : 'navBar');
+        setShowOptions(!showOptions); // Toggle showOptions state
     };
 
-    const handleLogoutClick = async () => {
-        try {
-            await signOut(auth);
-            setUser(null);
-            localStorage.removeItem('username');
-            // Optionally, you can clear any other user-related state here
-            // Redirecting to '/login' is omitted to stay on the same page
-        } catch (error) {
-            console.error('Error signing out:', error);
-        }
+    const handleLogoutClick = () => {
+        // Clear username from localStorage and reset state
+        localStorage.removeItem('username');
+        setUsername('');
+        setShowOptions(false); // Hide options after logout
+        // Additional logout logic if needed
+        // For example: redirecting to login page
+        // window.location.href = '/login';
     };
 
     const scrollToTop = () => {
@@ -99,7 +88,7 @@ const Navbar = () => {
                         </li>
 
                         <li className="navItem">
-                            <Link to="/about" className="navLink">About</Link> {/* Added About link */}
+                            <Link to="/about" className="navLink">About</Link>
                         </li>
 
                         <li className="navItem">
@@ -110,14 +99,14 @@ const Navbar = () => {
                             <Link to="/contact" className="navLink">Contact</Link>
                         </li>
 
-                        {user ? (
+                        {username ? (
                             <>
                                 <li className="navItem">
-                                    <span className="navLink" id="user" onClick={handleUsernameClick}>{user.displayName || user.email}</span>
+                                    <span className="navLink" id="user" onClick={handleUsernameClick}>{username}</span>
                                 </li>
-                                {active === 'navBar activeUsername' && (
-                                    <li className="navItem">
-                                        <span className="navLink logout" id="logout" onClick={handleLogoutClick}>Logout</span>
+                                {showOptions && (
+                                    <li className="navItem logoutOption" onClick={handleLogoutClick}>
+                                        Logout
                                     </li>
                                 )}
                             </>
