@@ -9,6 +9,7 @@ const Signup = () => {
         email: "",
         password: ""
     });
+    
     const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {

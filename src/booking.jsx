@@ -6,6 +6,7 @@ import Payment from "./payment";
 const Booking = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    
     const { itemData } = location.state || {};
     const [showPayment, setShowPayment] = useState(false);
     const [formData, setFormData] = useState({

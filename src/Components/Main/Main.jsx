@@ -21,7 +21,7 @@ const Main = () => {
         // Simulate data fetching delay
         const fetchData = async () => {
             setLoading(true);
-            await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate loading time
+            await new Promise(resolve => setTimeout(resolve, 5000)); // Simulate loading time
             setLoading(false);
         };
 

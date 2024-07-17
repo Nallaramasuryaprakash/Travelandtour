@@ -78,7 +78,7 @@ const Payment = ({ itemData, fees }) => {
                     <p>Destination: {itemData?.destTitle}</p>
                     <p>Location: {itemData?.location}</p>
                     <p>Fees: ₹{fees}</p>
-                    <p>Number of Persons: {itemData?.numberOfPersons}</p>
+                    {/* <p>Number of Persons: {itemData?.numberOfPersons}</p> */}
                 </div>
                 {!paymentMethod && (
                     <div className="payment-methods">
