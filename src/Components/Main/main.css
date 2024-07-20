@@ -167,3 +167,53 @@
   align-items: center;
   height: 10vh; /* Full height to center vertically */
 }
+
+/* Media query for mobile-s (320px) */
+@media screen and (max-width: 320px) {
+  .main .secTitle .title {
+    font-size: 1rem;
+  }
+  .main .secTitle .title::after {
+    width: 90px;
+  }
+  .main .secContent .singleDestination .cardInfo .destTitle {
+    font-size: 1rem;
+  }
+  .main .secContent .singleDestination .cardInfo .continent .name {
+    font-size: 12px;
+  }
+  .main .secContent .singleDestination .cardInfo .fees .price {
+    font-size: 1.5rem;
+  }
+  .main .secContent .singleDestination .cardInfo .desc {
+    font-size: 12px;
+  }
+  .main .secContent .singleDestination .cardInfo .btn {
+    font-size: 12px;
+  }
+}
+
+/* Media query for screens below 320px */
+@media screen and (max-width: 319px) {
+  .main .secTitle .title {
+    font-size: 0.875rem; /* Further decrease font size */
+  }
+  .main .secTitle .title::after {
+    width: 75px; /* Adjust the underline width */
+  }
+  .main .secContent .singleDestination .cardInfo .destTitle {
+    font-size: 0.875rem; /* Further decrease font size */
+  }
+  .main .secContent .singleDestination .cardInfo .continent .name {
+    font-size: 10px; /* Further decrease font size */
+  }
+  .main .secContent .singleDestination .cardInfo .fees .price {
+    font-size: 1.25rem; /* Further decrease font size */
+  }
+  .main .secContent .singleDestination .cardInfo .desc {
+    font-size: 10.5px; /* Further decrease font size */
+  }
+  .main .secContent .singleDestination .cardInfo .btn {
+    font-size: 10.5px; /* Further decrease font size */
+  }
+}
