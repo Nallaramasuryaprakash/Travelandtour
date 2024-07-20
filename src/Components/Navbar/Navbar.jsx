@@ -16,6 +16,7 @@ const Navbar = () => {
         const storedUsername = localStorage.getItem('username');
         if (storedUsername) {
             setUsername(storedUsername);
+            localStorage.removeItem('username'); // Clear username from localStorage
         }
 
         // Get user's current location
@@ -52,8 +53,7 @@ const Navbar = () => {
     };
 
     const handleLogoutClick = () => {
-        // Clear username from localStorage and reset state
-        localStorage.removeItem('username');
+        // Clear username from state and other logout logic
         setUsername('');
         setShowOptions(false); // Hide options after logout
         // Additional logout logic if needed
