@@ -16,7 +16,6 @@ const Navbar = () => {
         const storedUsername = localStorage.getItem('username');
         if (storedUsername) {
             setUsername(storedUsername);
-            localStorage.removeItem('username'); // Clear username from localStorage
         }
 
         // Get user's current location
