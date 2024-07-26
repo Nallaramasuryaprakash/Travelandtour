@@ -36,16 +36,27 @@ const Navbar = () => {
         } else {
             setLocation('Geolocation not supported');
         }
+
+        // Clear local storage on window close
+        const handleBeforeUnload = () => {
+            localStorage.clear();
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
     }, []);
 
     const showNav = () => {
         setActive('navBar activeNavbar');
-    }
+    };
 
     const removeNavbar = () => {
         setActive('navBar');
         setShowOptions(false); // Hide options when closing navbar
-    }
+    };
 
     const handleUsernameClick = () => {
         setShowOptions(!showOptions); // Toggle showOptions state
