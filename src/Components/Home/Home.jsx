@@ -67,6 +67,10 @@ const Home = () => {
     };
 
     const handleSearch = () => {
+        if (!searchInput) {
+            alert('Please enter a location name');
+            return;
+        }
         navigate(`/search?location=${searchInput}&maxPrice=${maxPrice}`);
     };
 
@@ -135,7 +139,7 @@ const Home = () => {
                     <div className="PriceInput">
                         <div className="label_total flex">
                             <label htmlFor="price">Max Price:</label>
-                            <h3 className="total">₹{maxPrice}</h3>
+                            <b className="total">₹{maxPrice}</b>
                         </div>
                         <div className="input flex">
                             <input type="range" max="30000" min="100" value={maxPrice} onChange={handlePriceChange} />

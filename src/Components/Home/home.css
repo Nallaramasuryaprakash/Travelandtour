@@ -172,6 +172,10 @@
   color: var(--PrimaryColor);
 }
 
+.total{
+  font-family :'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 @media screen and (min-width: 500px) {
   .home .homeContent .textDiv .smallText {
     font-size: 16px;
